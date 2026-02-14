@@ -2,7 +2,7 @@
 # Docker VsCode Server
 #
 # Build:
-# >>> podman build -t <IMAGE_NAME> <DOCKERFILE_PATH>
+# >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
 #
 # Run:
 # >>> podman run --rm -p 8080:8080 <IMAGE_NAME>

@@ -2,7 +2,7 @@
 # Docker with Node Version Manager
 #
 # Build:
-# >>> podman build -t <IMAGE_NAME> <DOCKERFILE_PATH>
+# >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
 #
 # Description:
 # [x] Adds NVM package manager
