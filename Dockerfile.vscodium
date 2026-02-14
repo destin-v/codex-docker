@@ -1,0 +1,47 @@
+#===================================================
+# VsCodium Server
+#
+# Build:
+# >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
+#
+# Run:
+# >>> 
+# podman run \
+#     -d \
+#     --name=vscodium \
+#     --cap-add=IPC_LOCK \
+#     -e PUID=1000 \
+#     -e PGID=1000 \
+#     -e TZ=Etc/UTC \
+#     -p 3000:3000 \
+#     -p 3001:3001 \
+#     --shm-size="1gb" \
+#     --restart unless-stopped \
+#     lscr.io/linuxserver/vscodium:latest
+#
+# Parameter	Function
+# -p 3000:3000	VSCodium desktop gui.
+# -p 3001:3001	HTTPS VSCodium desktop gui.
+# -e PUID=1000	for UserID - see below for explanation
+# -e PGID=1000	for GroupID - see below for explanation
+# -e TZ=Etc/UTC	specify a timezone to use, see this list.
+# -v /config	Users home directory in the container, stores local files and settings
+# --shm-size=	This is needed for electron applications to function properly.
+# --cap-add=IPC_LOCK	Required for keyring functionality.
+#
+# Description:
+# [x] Adds VsCodium server
+#
+# References:
+# * https://github.com/linuxserver/docker-vscodium/blob/master/README.md
+#====================================================
+
+FROM lscr.io/linuxserver/vscodium:latest
+
+# Common packages
+RUN apt-get -y update &&\
+    apt-get -y upgrade &&\
+    apt-get -y install \
+    neofetch &&\
+    apt-get -y clean
+

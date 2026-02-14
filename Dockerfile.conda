@@ -1,8 +1,8 @@
 #===================================================
 # Docker template with Miniconda (with GPU)
-# 
+#
 # Build:
-# >>> podman build --format docker -t <IMAGE NAME> <DOCKERFILE_PATH>
+# >>> podman build --format docker -t <IMAGE NAME> -f <DOCKERFILE>
 #
 # Run:
 # >>> podman run -it --rm --device nvidia.com/gpu=all <IMAGE_NAME> bash
@@ -12,7 +12,7 @@
 # [x] Adds pipx package manager
 # [x] Adds oh-my-posh terminal
 # [x] Adds vim awesome
-# 
+#
 # References:
 # * https://stackoverflow.com/questions/58269375/how-to-install-packages-with-miniconda-in-dockerfile
 # * https://pythonspeed.com/articles/activate-conda-dockerfile/
@@ -25,9 +25,9 @@ FROM nvidia/cuda:13.0.0-cudnn-devel-ubuntu24.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Common packages
-RUN apt -y update &&\ 
-    apt -y upgrade &&\
-    apt -y install \
+RUN apt-get -y update &&\
+    apt-get -y upgrade &&\
+    apt-get -y install \
     vim \
     curl \
     git \
@@ -35,7 +35,7 @@ RUN apt -y update &&\
     pipx \
     unzip \
     wget &&\
-    apt -y clean
+    apt-get -y clean
 
 # Install pipx
 RUN pipx ensurepath
@@ -77,4 +77,3 @@ RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime &&\
 #SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
 
 EXPOSE 8080
-

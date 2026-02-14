@@ -6,12 +6,11 @@
 
 # 📒 Description
 <p align="center">
-  <img src="docs/pics/program_logo.png" alt="drawing" width="300"/>
+  <img src="assets/images/logo.png" alt="drawing" width="400"/>
 </p>
 
 <p align="center">
   <a href="https://github.com/pre-commit/pre-commit">             <img alt="" src="https://img.shields.io/badge/pre--commit-enabled-blue?logo=pre-commit"></a>
-  <a href="https://sphinx-book-theme.readthedocs.io/en/stable/">  <img alt="" src="https://img.shields.io/badge/Sphinx-^1.1.2-blue?logo=sphinx&logoColor=white"></a>
 </p>
 
 <p align="center">
@@ -22,7 +21,7 @@ Development templates for Docker or Podman containers.  Use these as a starting 
 
 # 🐳 Docker
 Install the **Nvidia Container Tool Kit** (CTK) in order to run GPUs inside its containers.
- 
+
  ```bash
  # This needs to be redone every time your Nvidia drivers update.
  sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml      # Generate configuration for Nvidia CTK
@@ -67,20 +66,20 @@ You should see the following:
 ```
 # 🫛 Podman
 Install the **Nvidia Container Tool Kit** (CTK) in order to run GPUs inside its containers.
- 
+
  ```bash
  # This needs to be redone every time your Nvidia drivers update.
  sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml      # Generate configuration for Nvidia CTK
  nvidia-ctk cdi list                                             # Ensure you can see all GPUs.
  ```
- 
+
  The official Ubuntu apt package manager uses an older version of Podman.  Use Homebrew if you want the latest.
- 
+
  ```bash
  # To get the latest version of Podman, use Homebrew.
  brew install podman
  ```
- 
+
  Test Podman with a GPU enabled hello-world.
  ```bash
  # Test container with Nvidia hello-world

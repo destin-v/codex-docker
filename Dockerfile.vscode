@@ -1,6 +1,6 @@
 #===================================================
 # Docker VsCode Server
-# 
+#
 # Build:
 # >>> podman build -t <IMAGE_NAME> <DOCKERFILE_PATH>
 #
@@ -14,14 +14,14 @@
 # * https://github.com/coder/code-server
 #====================================================
 
-FROM ubuntu:24.10
+FROM ubuntu:24.04
 
 # Common packages
-RUN apt -y update &&\ 
-    apt -y upgrade &&\
-    apt -y install \
+RUN apt-get -y update &&\
+    apt-get -y upgrade &&\
+    apt-get -y install \
     curl &&\
-    apt -y clean
+    apt-get -y clean
 
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 

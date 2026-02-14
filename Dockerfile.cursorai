@@ -1,8 +1,8 @@
 #===================================================
 # Docker template with Miniconda (with GPU)
-# 
+#
 # Build:
-# >>> podman build --format docker -t <IMAGE NAME> <DOCKERFILE_PATH>
+# >>> podman build --format docker -t <IMAGE NAME> -f <DOCKERFILE>
 #
 # Run:
 # >>> podman run --rm -it --net=host --device nvidia.com/gpu=all --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" <IMAGE_NAME> bash
@@ -13,7 +13,7 @@
 # [x] Adds oh-my-posh terminal
 # [x] Adds vim awesome
 # [x] Add CursorAI
-# 
+#
 # References:
 # * https://stackoverflow.com/questions/58269375/how-to-install-packages-with-miniconda-in-dockerfile
 # * https://pythonspeed.com/articles/activate-conda-dockerfile/
@@ -27,9 +27,9 @@ FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Common packages
-RUN apt -y update &&\ 
-    apt -y upgrade &&\
-    apt -y install \
+RUN apt-get -y update &&\
+    apt-get -y upgrade &&\
+    apt-get -y install \
     vim \
     curl \
     git \
@@ -48,7 +48,7 @@ RUN apt -y update &&\
     unzip \
     wget \
     x11-apps &&\
-    apt -y clean
+    apt-get -y clean
 
 # Install pipx
 RUN pipx ensurepath
@@ -79,4 +79,3 @@ RUN chmod 755 /run/dbus
 CMD ["dbus-daemon", "--system"]
 
 EXPOSE 8080
-

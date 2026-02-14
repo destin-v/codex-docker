@@ -1,32 +1,32 @@
 #===================================================
 # Docker with Node Version Manager
-# 
+#
 # Build:
 # >>> podman build -t <IMAGE_NAME> <DOCKERFILE_PATH>
 #
 # Description:
 # [x] Adds NVM package manager
-# 
+#
 # References:
 # * https://gist.github.com/remarkablemark/aacf14c29b3f01d6900d13137b21db3a
 #====================================================
 
-FROM ubuntu:24.10
+FROM ubuntu:24.04
 
 # Disable interaction
 # Set ARG as this is only available during build
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Common packages
-RUN apt -y update &&\ 
-    apt -y upgrade &&\
-    apt -y install \
+RUN apt-get -y update &&\
+    apt-get -y upgrade &&\
+    apt-get -y install \
     curl \
     git \
     htop \
     unzip \
     wget &&\
-    apt -y clean
+    apt-get -y clean
 
 WORKDIR /root/
 
