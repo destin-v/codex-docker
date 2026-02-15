@@ -5,43 +5,43 @@
 # >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
 #
 # Run:
-# >>> 
-# podman run \
-#     -d \
-#     --name=vscodium \
-#     --cap-add=IPC_LOCK \
-#     -e PUID=1000 \
-#     -e PGID=1000 \
-#     -e TZ=Etc/UTC \
-#     -p 3000:3000 \
-#     -p 3001:3001 \
-#     --shm-size="1gb" \
-#     --restart unless-stopped \
-#     lscr.io/linuxserver/vscodium:latest
+# >>> podman run --rm --publish 8000:8000 <IMAGE_NAME>
 #
-# Parameter	Function
-# -p 3000:3000	VSCodium desktop gui.
-# -p 3001:3001	HTTPS VSCodium desktop gui.
-# -e PUID=1000	for UserID - see below for explanation
-# -e PGID=1000	for GroupID - see below for explanation
-# -e TZ=Etc/UTC	specify a timezone to use, see this list.
-# -v /config	Users home directory in the container, stores local files and settings
-# --shm-size=	This is needed for electron applications to function properly.
-# --cap-add=IPC_LOCK	Required for keyring functionality.
 #
 # Description:
-# [x] Adds VsCodium server
+# [x] Adds VsCodium web server
 #
 # References:
-# * https://github.com/linuxserver/docker-vscodium/blob/master/README.md
+# * https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo
 #====================================================
 
-FROM lscr.io/linuxserver/vscodium:latest
+FROM ubuntu:24.04
 
 # Common packages
 RUN apt-get -y update &&\
     apt-get -y upgrade &&\
     apt-get -y install \
-    neofetch &&\
+    gpg \
+    wget &&\
     apt-get -y clean
 
+# Add the Paul's GPG key of the repository:
+RUN wget https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
+-O /usr/share/keyrings/vscodium-archive-keyring.asc
+
+# Add the repository:
+RUN echo 'deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.asc ] https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main' \
+    | tee /etc/apt/sources.list.d/vscodium.list
+
+# Install VsCodium
+RUN apt-get -y update &&\
+    apt-get -y install codium &&\
+    apt-get -y clean
+
+RUN echo 'Acquire { https::Verify-Peer false }' >>/etc/apt/apt.conf.d/99verify-peer.conf
+
+# Codium has a web server that can be used in the browser:
+# WARNING: Connection is unsecured, only use if connection is secure through other means.
+USER ubuntu 
+EXPOSE 8000
+ENTRYPOINT ["codium", "serve-web", "--host", "0.0.0.0",  "--port", "8000", "--without-connection-token"]
