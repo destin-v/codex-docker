@@ -38,7 +38,8 @@ RUN apt-get -y update &&\
     apt-get -y install codium &&\
     apt-get -y clean
 
-RUN echo 'Acquire { https::Verify-Peer false }' >>/etc/apt/apt.conf.d/99verify-peer.conf
+# If your machine is behind the corporate firewall or proxy:
+# RUN echo 'Acquire { https::Verify-Peer false }' >>/etc/apt/apt.conf.d/99verify-peer.conf
 
 # Codium has a web server that can be used in the browser:
 # WARNING: Connection is unsecured, only use if connection is secure through other means.
