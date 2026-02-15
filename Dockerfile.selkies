@@ -9,7 +9,7 @@
 #   podman run \
 #     --name egl \
 #     -it \
-#     -d \
+#     --detach \
 #     --tmpfs /dev/shm:rw \
 #     -e TZ=UTC \
 #     -e DISPLAY_SIZEW=1920 \

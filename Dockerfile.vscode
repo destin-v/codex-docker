@@ -5,7 +5,7 @@
 # >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
 #
 # Run:
-# >>> podman run --rm -p 8080:8080 <IMAGE_NAME>
+# >>> podman run --rm --detach --publish 8080:8080 <IMAGE_NAME>
 #
 # Description:
 # [x] Adds VsCode server
