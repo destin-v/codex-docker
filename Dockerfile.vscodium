@@ -21,22 +21,10 @@ FROM ubuntu:24.04
 RUN apt-get -y update &&\
     apt-get -y upgrade &&\
     apt-get -y install \
-    gpg \
-    wget &&\
+    curl &&\
     apt-get -y clean
 
-# Add the Paul's GPG key of the repository:
-RUN wget https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
--O /usr/share/keyrings/vscodium-archive-keyring.asc
-
-# Add the repository:
-RUN echo 'deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.asc ] https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main' \
-    | tee /etc/apt/sources.list.d/vscodium.list
-
-# Install VsCodium
-RUN apt-get -y update &&\
-    apt-get -y install codium &&\
-    apt-get -y clean
+RUN curl -fsSL https://github.com/destin-v/codium-installer/raw/refs/heads/main/codium-install.sh | sh
 
 # If your machine is behind the corporate firewall or proxy:
 # RUN echo 'Acquire { https::Verify-Peer false }' >>/etc/apt/apt.conf.d/99verify-peer.conf
