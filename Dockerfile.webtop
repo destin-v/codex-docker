@@ -1,0 +1,32 @@
+#===================================================
+# VsCodium Server
+#
+# Build:
+# >>> podman build -t <IMAGE_NAME> -f <DOCKERFILE>
+#
+# Run:
+# >>> 
+# podman run -d \
+#   --name=webtop \
+#   -e PUID=1000 \
+#   -e PGID=1000 \
+#   -e TZ=Etc/UTC \
+#   -p 3000:3000 \
+#   -p 3001:3001 \
+#   --shm-size="1gb" \
+#   --restart unless-stopped \
+#   lscr.io/linuxserver/webtop:ubuntu-kde
+#
+#
+# Description:
+# [x] Utilize Ubuntu KDE (Wayland)
+#
+# References:
+# * https://docs.linuxserver.io/images/docker-webtop/#docker-compose-recommended-click-here-for-more-info
+#====================================================
+
+FROM lscr.io/linuxserver/webtop:ubuntu-kde
+
+RUN apt-get -y update &&\
+    apt-get -y install vim &&\
+    apt-get -y clean
